@@ -1,17 +1,21 @@
 cmake_minimum_required(VERSION 3.14)
 project(docman)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 include_directories(
-    ${PROJECT_SOURCE_DIR}/third_parties/cpp-httplib
-    ${PROJECT_SOURCE_DIR}/third_parties/nlohmann/include
+    third_parties/cpp-httplib
+    third_parties/nlohmann/include
 )
 
 find_package(OpenSSL REQUIRED)
 
-add_executable(docman 
-    main.cpp 
-    citation.cpp 
-    citation.h 
+add_executable(docman
+    main.cpp
+    citation.cpp
+    citation.h
     utils.hpp
 )
 
@@ -22,10 +26,11 @@ target_link_libraries(docman PRIVATE
 
 if(WIN32)
     target_link_libraries(docman PRIVATE ws2_32)
+    message(STATUS "Linking Windows socket library")
 endif()
 
-set_target_properties(docman PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-)
+message(STATUS "Include directories:")
+get_target_property(DOCMAN_INCLUDES docman INCLUDE_DIRECTORIES)
+foreach(INCLUDE_DIR ${DOCMAN_INCLUDES})
+    message(STATUS "  - ${INCLUDE_DIR}")
+endforeach()
