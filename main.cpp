@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <regex>
 #include <nlohmann/json.hpp>
-#include <httplib.h>
+#include "httplib.h"
 #include "citation.h"
 #include "utils.hpp"
 
