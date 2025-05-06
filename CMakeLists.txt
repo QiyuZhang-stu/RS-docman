@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(
-    third_parties/cpp-httplib
-    third_parties/nlohmann/include
+    third_parties/cpp-httplib          
+    third_parties/nlohmann             
 )
 
 find_package(OpenSSL REQUIRED)
@@ -19,18 +19,11 @@ add_executable(docman
     utils.hpp
 )
 
-target_link_libraries(docman PRIVATE 
-    OpenSSL::SSL 
+target_link_libraries(docman PRIVATE
+    OpenSSL::SSL
     OpenSSL::Crypto
 )
 
 if(WIN32)
     target_link_libraries(docman PRIVATE ws2_32)
-    message(STATUS "Linking Windows socket library")
 endif()
-
-message(STATUS "Include directories:")
-get_target_property(DOCMAN_INCLUDES docman INCLUDE_DIRECTORIES)
-foreach(INCLUDE_DIR ${DOCMAN_INCLUDES})
-    message(STATUS "  - ${INCLUDE_DIR}")
-endforeach()
